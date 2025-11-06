@@ -1,0 +1,16 @@
+---
+- name: Check OS Version on test-fleet
+  hosts: test-fleet
+  gather_facts: false
+  
+  tasks:
+    - name: Gather distribution and version information
+      ansible.builtin.setup:
+        gather_subset:
+          - distribution
+          - distribution_major_version
+          - distribution_version
+
+    - name: Print OS version information
+      ansible.builtin.debug:
+        msg: "Distribution: {{ ansible_distribution }}, Version: {{ ansible_distribution_version }}, Major Version: {{ ansible_distribution_major_version }}"
